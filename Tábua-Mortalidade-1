@@ -16,7 +16,8 @@ l4 = l3 * (vivos[3]/100)
 resultado = [populacao, l2, l3, l4]
 
 plt.title("Tábua de Mortalidade - Durga")
-plt.bar(idades, resultado)
+cores = ["#CD2900", "#F6C19D", "#CB5D9D", "#75003A"]
+plt.bar(idades, resultado, color = cores)
 plt.xticks(idades)
 plt.xlabel("Idades:")
 plt.ylabel("Número de vivos: ")
