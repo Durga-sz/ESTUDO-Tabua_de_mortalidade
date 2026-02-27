@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 #-------------Durga, tábua de mortalidade ---------------
 base = {
     "idades" : [0, 1, 2, 3],
@@ -7,19 +8,16 @@ base = {
 idades = base["idades"]
 vivos = base["vivos"]
 dataframe1 = pd.DataFrame(base)
-print(dataframe1)
 populacao = sum(vivos)
-
 
 l2 = populacao * (vivos[1]/100)
 l3 = l2 * (vivos[2]/100)
 l4 = l3 * (vivos[3]/100)
-print(populacao, l2, l3, l4)
+resultado = [populacao, l2, l3, l4]
 
-
-a = ("O número de vivos até os ", idades[0], "anos é: ", populacao)
-b = ("O número de vivos até os ", idades[1], "anos é: ", l2)
-c = ("O número de vivos até os ", idades[2], "anos é: ", l3)
-d = ("O número de vivos até os ", idades[3], "anos é: ", l4)
-resultado = [a, b, c, d]
-print(resultado)
+plt.title("Tábua de Mortalidade - Durga")
+plt.bar(idades, resultado)
+plt.xticks(idades)
+plt.xlabel("Idades:")
+plt.ylabel("Número de vivos: ")
+plt.show()
