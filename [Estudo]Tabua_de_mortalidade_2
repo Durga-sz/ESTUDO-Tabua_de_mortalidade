@@ -1,0 +1,38 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+#-----------Durga, tábua de mortalidade 2---------
+
+populacao = pd.read_csv("populacao_ficticia.csv")
+obitos = pd.read_csv("obitos_ficticios.csv")
+
+base = populacao.merge(obitos, how="left")
+lx = pd.DataFrame(base["populacao"].values, columns=["lx"])
+dx = pd.DataFrame(base["obitos"].values, columns=["dx"])
+
+qx = pd.DataFrame()
+qx["qx"] = dx["dx"] / lx["lx"]
+
+pxfinal = []
+for y in range(len(dx)):
+    nqx = qx["qx"].iloc[y]
+    finalpx = (1 - nqx)
+    pxfinal.append(finalpx)
+px = pd.DataFrame(pxfinal, columns=["px"])
+
+TabuaMortalidade = pd.DataFrame({"lx": lx["lx"].values, "dx": dx["dx"].values,
+                                 "qx": qx["qx"].values, "px": px["px"].values
+})
+print(TabuaMortalidade)
+
+#------------------------------------------------
+fig, (pxt, qxt) = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
+pxt.plot(px.index, px["px"], color="green")
+pxt.set_title("Prob. de sobreviver no decorrer dos anos: ")
+pxt.set_xlabel("Idade")
+pxt.set_ylabel("Porcentagem")
+qxt.set_title("Prob. de não sobreviver no decorrer dos anos: ")
+qxt.plot(qx.index, qx["qx"])
+qxt.set_xlabel("Idade")
+qxt.set_ylabel("Porcentagem")
+
+plt.show()
